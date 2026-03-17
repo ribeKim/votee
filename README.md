@@ -7,7 +7,7 @@ Votee is a Korean-first avatar community service built with a React frontend and
 - `frontend`: Vite + React + TypeScript SPA.
 - `backend`: FastAPI application, SQLAlchemy models, Alembic migrations, and pytest coverage.
 - `docker-compose.yml`: local Docker stack for frontend, backend, Postgres, and Redis.
-- `dockge.stack.yml`: Dockge-friendly stack file using the same services and volumes.
+- `dockge.stack.yml`: Dockge stack that builds directly from the GitHub repository source.
 
 ## Environment
 
@@ -36,6 +36,18 @@ Use [dockge.stack.yml](/C:/Users/dudtj/OneDrive/문서/Repo/votee/dockge.stack.y
 - `backend`
 - `db` (Postgres 16)
 - `redis` (Redis 7 with AOF persistence)
+
+The Dockge stack does not require a separate server-side `git clone`. It uses Docker remote Git build contexts:
+
+- `backend`: `https://github.com/ribeKim/votee.git#main:backend`
+- `frontend`: `https://github.com/ribeKim/votee.git#main:frontend`
+
+To switch the source branch or tag in Dockge, set these variables in the stack environment:
+
+- `VOTEE_GIT_REPO`
+- `VOTEE_GIT_REF`
+
+When you want the latest code from GitHub, re-deploy the stack with build enabled so Docker rebuilds from the current Git ref.
 
 ## Deployment notes
 

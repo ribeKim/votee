@@ -32,7 +32,9 @@ services:
 
   backend:
     build:
-      context: ./backend
+      context: "${VOTEE_GIT_REPO:-https://github.com/ribeKim/votee.git}#${VOTEE_GIT_REF:-main}:backend"
+      dockerfile: Dockerfile
+      pull: true
     restart: unless-stopped
     env_file:
       - .env
@@ -44,7 +46,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./backend/uploads:/app/uploads
+      - backend_uploads:/app/uploads
     healthcheck:
       test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/api/health')"]
       interval: 15s
@@ -53,7 +55,9 @@ services:
 
   frontend:
     build:
-      context: ./frontend
+      context: "${VOTEE_GIT_REPO:-https://github.com/ribeKim/votee.git}#${VOTEE_GIT_REF:-main}:frontend"
+      dockerfile: Dockerfile
+      pull: true
     restart: unless-stopped
     depends_on:
       backend:
@@ -62,5 +66,6 @@ services:
       - "4173:80"
 
 volumes:
+  backend_uploads:
   postgres_data:
   redis_data:
