@@ -1,0 +1,2 @@
+"""Votee backend package."""
+

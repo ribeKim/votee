@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "votee-backend"
+version = "0.1.0"
+description = "Votee FastAPI backend"
+requires-python = ">=3.11"
+dependencies = [
+  "alembic>=1.14.0",
+  "authlib>=1.4.0",
+  "fastapi>=0.116.0",
+  "httpx>=0.28.0",
+  "pillow>=10.4.0",
+  "psycopg[binary]>=3.2.6",
+  "pydantic-settings>=2.6.0",
+  "python-multipart>=0.0.18",
+  "redis>=5.2.1",
+  "sqlalchemy>=2.0.37",
+  "uvicorn>=0.34.0",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest>=8.3.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.setuptools.packages.find]
+include = ["app*"]
