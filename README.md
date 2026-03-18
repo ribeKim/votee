@@ -37,6 +37,8 @@ Use [dockge.stack.yml](/C:/Users/dudtj/OneDrive/문서/Repo/votee/dockge.stack.y
 - `db` (Postgres 16)
 - `redis` (Redis 7 with AOF persistence)
 
+For Dockge, you do not need a separate `.env` file. Enter the stack variables directly in Dockge's environment editor.
+
 The Dockge stack does not require a separate server-side `git clone`. It uses Docker remote Git build contexts:
 
 - `backend`: `https://github.com/ribeKim/votee.git#main:backend`
@@ -46,6 +48,16 @@ To switch the source branch or tag in Dockge, set these variables in the stack e
 
 - `VOTEE_GIT_REPO`
 - `VOTEE_GIT_REF`
+
+The minimum backend variables to fill in Dockge are:
+
+- `VOTEE_SESSION_SECRET`
+- `VOTEE_FRONTEND_URL`
+- `VOTEE_PUBLIC_APP_URL`
+- `VOTEE_API_BASE_URL`
+- `VOTEE_DISCORD_CLIENT_ID`
+- `VOTEE_DISCORD_CLIENT_SECRET`
+- `VOTEE_DISCORD_REDIRECT_URI`
 
 When you want the latest code from GitHub, re-deploy the stack with build enabled so Docker rebuilds from the current Git ref.
 
