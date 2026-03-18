@@ -63,4 +63,4 @@ def healthcheck() -> dict[str, str]:
         redis_client.ping()
     except Exception as error:
         raise HTTPException(status_code=503, detail=f"Dependency check failed: {error}") from error
-    return {"status": "ok", "version": settings.app_version}
+    return {"status": "ok"}
