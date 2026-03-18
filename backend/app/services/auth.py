@@ -56,7 +56,13 @@ class AuthlibDiscordOAuthService:
                 code=code,
                 grant_type="authorization_code",
             )
-            response = await client.get("https://discord.com/api/users/@me", token=token)
+            access_token = token.get("access_token")
+            if not access_token:
+                raise ValueError("Discord OAuth token response did not include an access token.")
+            response = await client.get(
+                "https://discord.com/api/users/@me",
+                headers={"Authorization": f"Bearer {access_token}"},
+            )
             response.raise_for_status()
             payload = response.json()
             return DiscordIdentity(
