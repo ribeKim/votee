@@ -26,7 +26,7 @@ The default environment is now aligned to local Docker services:
 2. Start the full stack with `docker compose up --build`.
 3. Open the frontend at `http://localhost:4173`.
 4. Check backend dependency status at `http://localhost:8000/api/health`.
-5. Uploads are stored locally under `backend/uploads`.
+5. Persistent data is stored under `./data/postgres`, `./data/redis`, and `./data/uploads`.
 
 ## Dockge
 
@@ -38,6 +38,12 @@ Use [dockge.stack.yml](/C:/Users/dudtj/OneDrive/문서/Repo/votee/dockge.stack.y
 - `redis` (Redis 7 with AOF persistence)
 
 For Dockge, you do not need a separate `.env` file. Enter the stack variables directly in Dockge's environment editor.
+
+The stack now uses bind-mounted default folders instead of unnamed volumes:
+
+- `./data/postgres`
+- `./data/redis`
+- `./data/uploads`
 
 The Dockge stack does not require a separate server-side `git clone`. It uses Docker remote Git build contexts:
 
@@ -71,4 +77,4 @@ When you want the latest code from GitHub, re-deploy the stack with build enable
 
 - The repository is designed for a single VPS deployment using Docker Compose.
 - The backend now expects `VOTEE_DATABASE_URL` and `VOTEE_REDIS_URL` to be reachable from the app container.
-- File uploads are stored on the server volume mounted at `/app/uploads`.
+- File uploads are stored in the host folder mounted from `./data/uploads`.

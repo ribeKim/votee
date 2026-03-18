@@ -20,3 +20,4 @@ frontend/playwright-report/
 backend/data/
 backend/uploads/
 backend/test-import.db
+data/
