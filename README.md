@@ -51,6 +51,7 @@ To switch the source branch or tag in Dockge, set these variables in the stack e
 
 The minimum backend variables to fill in Dockge are:
 
+- `VOTEE_APP_VERSION`
 - `VOTEE_SESSION_SECRET`
 - `VOTEE_FRONTEND_URL`
 - `VOTEE_PUBLIC_APP_URL`
@@ -58,6 +59,11 @@ The minimum backend variables to fill in Dockge are:
 - `VOTEE_DISCORD_CLIENT_ID`
 - `VOTEE_DISCORD_CLIENT_SECRET`
 - `VOTEE_DISCORD_REDIRECT_URI`
+
+If you want the deployed version to be visible in logs and the browser console, also set:
+
+- `VOTEE_APP_VERSION`
+- `VITE_APP_VERSION`
 
 When you want the latest code from GitHub, re-deploy the stack with build enabled so Docker rebuilds from the current Git ref.
 

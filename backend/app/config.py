@@ -1,15 +1,25 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from importlib.metadata import PackageNotFoundError
+from importlib.metadata import version as package_version
 
 from pydantic import Field
 from pydantic_settings import BaseSettings
 from pydantic_settings import SettingsConfigDict
 
 
+def _default_app_version() -> str:
+    try:
+        return package_version("votee-backend")
+    except PackageNotFoundError:
+        return "0.1.0"
+
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_prefix="VOTEE_", extra="ignore")
 
+    app_version: str = Field(default_factory=_default_app_version)
     database_url: str = Field(default="postgresql+psycopg://votee:votee@db:5432/votee")
     redis_url: str = Field(default="redis://redis:6379/0")
     session_secret: str = Field(default="change-me")

@@ -37,6 +37,7 @@ services:
       pull: true
     restart: unless-stopped
     environment:
+      VOTEE_APP_VERSION: "${VOTEE_APP_VERSION:-0.1.0}"
       VOTEE_DATABASE_URL: "${VOTEE_DATABASE_URL:-postgresql+psycopg://votee:votee@db:5432/votee}"
       VOTEE_REDIS_URL: "${VOTEE_REDIS_URL:-redis://redis:6379/0}"
       VOTEE_SESSION_SECRET: "${VOTEE_SESSION_SECRET:-change-me}"
@@ -75,6 +76,8 @@ services:
       context: "${VOTEE_GIT_REPO:-https://github.com/ribeKim/votee.git}#${VOTEE_GIT_REF:-main}:frontend"
       dockerfile: Dockerfile
       pull: true
+      args:
+        VITE_APP_VERSION: "${VITE_APP_VERSION:-0.1.0}"
     restart: unless-stopped
     depends_on:
       backend:

@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+from collections.abc import AsyncIterator
+from contextlib import asynccontextmanager
+import logging
 from pathlib import Path
 
 from fastapi import FastAPI
@@ -21,8 +24,16 @@ from app.routers import votes
 
 settings = get_settings()
 Base.metadata.create_all(bind=engine)
+logger = logging.getLogger("votee")
 
-app = FastAPI(title="Votee API", version="0.1.0")
+
+@asynccontextmanager
+async def lifespan(_: FastAPI) -> AsyncIterator[None]:
+    logger.info("Votee backend version %s", settings.app_version)
+    yield
+
+
+app = FastAPI(title="Votee API", version=settings.app_version, lifespan=lifespan)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[settings.frontend_url, settings.public_app_url],
@@ -52,4 +63,4 @@ def healthcheck() -> dict[str, str]:
         redis_client.ping()
     except Exception as error:
         raise HTTPException(status_code=503, detail=f"Dependency check failed: {error}") from error
-    return {"status": "ok"}
+    return {"status": "ok", "version": settings.app_version}
