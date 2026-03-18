@@ -26,7 +26,7 @@ The default environment is now aligned to local Docker services:
 2. Start the full stack with `docker compose up --build`.
 3. Open the frontend at `http://localhost:4173`.
 4. Check backend dependency status at `http://localhost:8000/api/health`.
-5. Uploads are stored locally under `backend/uploads` unless you later switch to Supabase storage.
+5. Uploads are stored locally under `backend/uploads`.
 
 ## Dockge
 
@@ -65,4 +65,4 @@ When you want the latest code from GitHub, re-deploy the stack with build enable
 
 - The repository is designed for a single VPS deployment using Docker Compose.
 - The backend now expects `VOTEE_DATABASE_URL` and `VOTEE_REDIS_URL` to be reachable from the app container.
-- Production file uploads can continue using local storage or switch `VOTEE_STORAGE_DRIVER` to `supabase`.
+- File uploads are stored on the server volume mounted at `/app/uploads`.

@@ -24,7 +24,6 @@ from app.services.auth import AuthlibDiscordOAuthService
 from app.services.auth import DiscordOAuthService
 from app.services.storage import LocalStorageService
 from app.services.storage import StorageService
-from app.services.storage import SupabaseStorageService
 
 
 def get_app_settings() -> Settings:
@@ -32,8 +31,6 @@ def get_app_settings() -> Settings:
 
 
 def get_storage_service(settings: Settings = Depends(get_app_settings)) -> StorageService:
-    if settings.storage_driver == "supabase" and settings.supabase_url and settings.supabase_service_role_key:
-        return SupabaseStorageService(settings)
     return LocalStorageService(settings)
 
 
